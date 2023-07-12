@@ -13,7 +13,7 @@ class AgendasController < ApplicationController
   def create
     @agenda = current_user.agendas.build(title: params[:title])
     @agenda.team = Team.friendly.find(params[:team_id])
-    current_user.keep_team_id = @agenda.team.id
+    current_user. = @agenda.team.id
     if current_user.save && @agenda.save
       redirect_to dashboard_url, notice: I18n.t('views.messages.create_agenda') 
     else

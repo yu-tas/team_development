@@ -16,6 +16,10 @@ class AssignsController < ApplicationController
 
   def destroy
     assign = Assign.find(params[:id])
+    unless current_user == assign.user || current_user == assign.team.owner
+      redirect_to assign.team, alert: 'ユーザー削除の権限がありません'
+      return
+    end
     destroy_message = assign_destroy(assign, assign.user)
 
     redirect_to team_url(params[:team_id]), notice: destroy_message
