@@ -34,7 +34,9 @@
               <i class="fa fa-circle-o nav-icon"></i>
               <p>
                 <%= agenda.title %>
-                <object><%= link_to 'Delete', agenda_path(agenda), method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' %></object>
+                <%if current_user.id == agenda.user_id || current_user.id == agenda.team.owner_id %>
+                <object><%= link_to '削除', agenda_path(agenda), method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' %></object>
+                <% end %>
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>

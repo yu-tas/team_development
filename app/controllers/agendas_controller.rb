@@ -1,5 +1,5 @@
 class AgendasController < ApplicationController
-  # before_action :set_agenda, only: %i[show edit update destroy]
+   before_action :set_agenda, only: %i[show edit update destroy]
 
   def index
     @agendas = Agenda.all
@@ -24,7 +24,7 @@ class AgendasController < ApplicationController
   def destroy
     @agenda = Agenda.find(params[:id])
 
-    unless current_user.id == @agenda.user_id || current_user.id == @agenda.teams.owner_id
+    unless current_user.id == @agenda.user_id || current_user.id == @agenda.team.owner_id
       redirect_to dashboard_path, notice: 'アジェンダはAgendaの作者もしくはそのAgendaに紐づいているTeamの作者（オーナー）しか削除できません'
       return
     end
@@ -48,4 +48,7 @@ class AgendasController < ApplicationController
       AgendaMailer.agenda_deleted_emails(user, agenda).deliver_later
     end
   end
+
+  
+  
 end
