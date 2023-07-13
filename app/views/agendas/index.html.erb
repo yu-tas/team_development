@@ -25,3 +25,5 @@
 <br>
 
 <%= link_to 'New Agenda', new_team_agenda_path %>
+<%= link_to 'Delete Agenda', agenda_path(@agenda), method: :delete, data: { confirm: '本当に削除して良いの?' } %>
+

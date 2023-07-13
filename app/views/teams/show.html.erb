@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>">
+    <%= message %>
+  </div>
+<% end %>
 
 <div class="row">
   <div class="col-md-12">
@@ -42,6 +47,7 @@
                       <td><%= image_tag 'default.jpg', size: '40x40' %></td>
                       <td><%= assign.user.email %></td>
                       <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+                      <td><%= link_to "権限委譲", transfer_ownership_team_path(@team, assign_id: assign.id), method: :patch, class: 'btn btn-sm btn-info' %></td>
                     </tr>
                   <% end %>
                 </tbody>

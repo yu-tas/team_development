@@ -21,6 +21,18 @@ class AgendasController < ApplicationController
     end
   end
 
+  def destroy
+    @agenda = Agenda.find(params[:id])
+
+    unless current_user.id == @agenda.user_id || current_user.id == @agenda.teams.owner_id
+      redirect_to dashboard_path, notice: 'アジェンダはAgendaの作者もしくはそのAgendaに紐づいているTeamの作者（オーナー）しか削除できません'
+    return
+    end
+    @agenda.destroy
+    send_agenda_deletion_emails(@agenda)
+    redirect_to dashboard_path, notice: 'アジェンダが削除されました'
+  end
+
   private
 
   def set_agenda
@@ -29,5 +41,11 @@ class AgendasController < ApplicationController
 
   def agenda_params
     params.fetch(:agenda, {}).permit %i[title description]
+  end
+
+  def send_agenda_deletion_emails(agenda)
+    agenda.team.users.each do |user|
+    AgendaMailer.agenda_deleted_emails(user, agenda).deliver_later
+    end
   end
 end

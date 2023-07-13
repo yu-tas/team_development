@@ -34,6 +34,7 @@
               <i class="fa fa-circle-o nav-icon"></i>
               <p>
                 <%= agenda.title %>
+                <object><%= link_to 'Delete', agenda_path(agenda), method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' %></object>
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
