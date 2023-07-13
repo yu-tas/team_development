@@ -63,6 +63,7 @@ group :development do
   gem 'rack-mini-profiler', require: false
   gem 'web-console', '>= 3.3.0'
   gem 'letter_opener_web'
+  gem 'rubocop', require: false
 end
 
 group :test do

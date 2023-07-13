@@ -15,7 +15,7 @@ class AgendasController < ApplicationController
     @agenda.team = Team.friendly.find(params[:team_id])
     current_user.keep_team_id = @agenda.team.id
     if current_user.save && @agenda.save
-      redirect_to dashboard_url, notice: I18n.t('views.messages.create_agenda') 
+      redirect_to dashboard_url, notice: I18n.t('views.messages.create_agenda')
     else
       render :new
     end
@@ -26,7 +26,7 @@ class AgendasController < ApplicationController
 
     unless current_user.id == @agenda.user_id || current_user.id == @agenda.teams.owner_id
       redirect_to dashboard_path, notice: 'アジェンダはAgendaの作者もしくはそのAgendaに紐づいているTeamの作者（オーナー）しか削除できません'
-    return
+      return
     end
     @agenda.destroy
     send_agenda_deletion_emails(@agenda)
@@ -45,7 +45,7 @@ class AgendasController < ApplicationController
 
   def send_agenda_deletion_emails(agenda)
     agenda.team.users.each do |user|
-    AgendaMailer.agenda_deleted_emails(user, agenda).deliver_later
+      AgendaMailer.agenda_deleted_emails(user, agenda).deliver_later
     end
   end
 end

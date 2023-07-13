@@ -59,12 +59,12 @@ class TeamsController < ApplicationController
     if @team.owner == current_user
       @team.owner = new_owner
       if @team.save!
-         TeamMailer.transfer_ownership_email(new_owner, @team).deliver_later
-         redirect_to team_path(@team), notice: '権限が移動されました'
+        TeamMailer.transfer_ownership_email(new_owner, @team).deliver_later
+        redirect_to team_path(@team), notice: '権限が移動されました'
       else
-         flash.now[:error] = '権限の移動に失敗しました'
-         render :edit
-       end
+        flash.now[:error] = '権限の移動に失敗しました'
+        render :edit
+      end
     else
       redirect_to team_path(@team), alert: '権限を移動する権限がありません'
     end

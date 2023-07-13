@@ -23,5 +23,5 @@ jobs:
       - run: yarn
       - run: bundle exec bin/webpack
       - run: bundle exec rake db:setup
-      - run: bundle exec rubocop -D -R -c .rubocop.yml
+      - run: bundle exec rubocop -D -R -c .
       - run: bundle exec rake
